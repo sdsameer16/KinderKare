@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinder Kares</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffb6c1;
+            color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('logo3_hd-modified.png');
+            
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            width: 50%;
+            text-align: left;
+        
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .rules-box, .form-box {
+            border: 2px solid black;
+            box-shadow:rgb(101, 7, 39);
+        
+            padding: 15px;
+            margin-top: 20px;
+           
+        }
+        
+        .hidden { 
+            display: none; 
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            
+            color: rgb(181, 40, 40);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #333;
+        }
+    </style>
+    <script>
+        function checkResponses() {
+            let allYes = true;
+            let questions = document.querySelectorAll("input[type='radio']:checked");
+
+            if (questions.length < 7) {
+                allYes = false;
+            }
+
+            questions.forEach(q => {
+                if (q.value === "no") {
+                    allYes = false;
+                }
+            });
+
+            let nextButton = document.getElementById("nextPage");
+            let messageBox = document.getElementById("message");
+
+            if (allYes) {
+                nextButton.style.display = "block";
+                messageBox.style.display = "none";
+            } else {
+                nextButton.style.display = "none";
+                messageBox.style.display = "block";
+            }
+        }
+
+        function redirectToNextPage() {
+            window.location.href = 'contact.html';
+        }
+    </script>
+</head>
+<body>
+    <h1>KINDER KARES</h1>
+    <div class="container">
+        <div class="rules-box">
+            <h2>Rules</h2>
+            <ul>
+                <li>The Area should be above 1500 sq.feet</li>
+                <li>The Hospital Facility should be provided</li>
+                <li>AC Facilities should be available</li>
+                <li>Must contain an indoor play area for children</li>
+                <li>Must consist of Advanced and well-trained Caretakers or Staff</li>
+                <li>Must have above 100 rooms</li>
+                <li>High Security for children</li>
+            </ul>
+        </div>
+        <div class="form-box">
+            <h2>Confirm Requirements</h2>
+            <form>
+                <p>1. Is the area above 1500 sq.feet? <input type="radio" name="q1" value="yes" onclick="checkResponses()"> Yes <input type="radio" name="q1" value="no" onclick="checkResponses()"> No</p>
+                <p>2. Is the Hospital Facility provided? <input type="radio" name="q2" value="yes" onclick="checkResponses()"> Yes <input type="radio" name="q2" value="no" onclick="checkResponses()"> No</p>
+                <p>3. Are AC facilities available? <input type="radio" name="q3" value="yes" onclick="checkResponses()"> Yes <input type="radio" name="q3" value="no" onclick="checkResponses()"> No</p>
+                <p>4. Is there an indoor play area? <input type="radio" name="q4" value="yes" onclick="checkResponses()"> Yes <input type="radio" name="q4" value="no" onclick="checkResponses()"> No</p>
+                <p>5. Are caretakers well-trained? <input type="radio" name="q5" value="yes" onclick="checkResponses()"> Yes <input type="radio" name="q5" value="no" onclick="checkResponses()"> No</p>
+                <p>6. Are there more than 100 rooms? <input type="radio" name="q6" value="yes" onclick="checkResponses()"> Yes <input type="radio" name="q6" value="no" onclick="checkResponses()"> No</p>
+                <p>7. Is security available? <input type="radio" name="q7" value="yes" onclick="checkResponses()"> Yes <input type="radio" name="q7" value="no" onclick="checkResponses()"> No</p>
+            </form>
+            <p id="message" class="hidden" style="color: red; font-weight: bold;">SORRY, YOU ARE NOT ELIGIBLE TO BUY</p>
+            <button id="nextPage" class="hidden" onclick="redirectToNextPage()">Next</button>
+        </div>
+    </div>
+</body>
+</html>

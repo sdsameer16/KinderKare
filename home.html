@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+             /* Red border */
+            padding: 20px;
+            display: flex; /* Flexbox for side-by-side alignment */
+            justify-content: space-around; /* Spacing between items */
+            align-items: center; /* Align items vertically */
+            max-width: 600px; /* Adjust width as needed */
+            margin: auto; /* Center the container */
+        }
+        .image-container {
+            border: 5px solid red;
+            text-align: center;
+            width: 45%; /* Adjust width for spacing */
+        }
+        img {
+            width: 150px; /* Adjust image size as needed */
+            height: auto;
+            display: block; /* Removes extra spacing below the image */
+            margin: auto;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <h1>Sun</h1>
+            <img src="image.png" alt="Sun image">
+        </div>
+        <div class="image-container">
+            <h1>Moon</h1>
+            <img src="download (6).jpeg" alt="Moon">
+        </div>
+    </div>
+    <div class="buttons">
+        <input type="submit" name="Submit" value="Submit">
+        <input type="reset" name="Reset" value="Reset">
+    </div>
+</body>
+</html>

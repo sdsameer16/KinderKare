@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="logo3_hd-modified.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="stylereg.css">
+
+    <title>Registration form</title>
+</head>
+<body>
+    <div class="legend-container">
+        <!-- Child Details Form -->
+        <div class="form-container">
+            <lagend>Child Details</lagend>
+            <form name="submit-to-google-sheet" method="post">
+                <label>Name:</label>
+                <input type="text" name="Child_name" value="" placeholder="Eg: Sd.Sameer...">
+                <label>Age:</label>
+                <input type="number" name="age" value="" placeholder="If less than 1 year, please keep 0">
+                <label>Gender</label>
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="female"> Female
+                <label>Any symptoms of disease:</label>
+                <br><input type="checkbox" name="symptom" value="fever"> Fever
+                <br><input type="checkbox" name="symptom" value="cold"> Cold
+                <br><input type="checkbox" name="symptom" value="motions"> Motions
+                <br><input type="checkbox" name="symptom" value="none"> None
+                <br><label for="sec">Choose your Child Bed:</label>
+                <select name="section" id="sec">
+                    <option value="AC">A/C</option>
+                    <option value="Non AC">Non A/C</option>
+                </select>
+                
+            
+            </div>
+            <div class="form-container">
+                <br>  <lagend>Parent Details</lagend>
+                
+                    <label for="parent_name">Name of the Parent:</label>
+                    <input type="text" id="parent_name" name="parent_name" value="" placeholder="Eg: Sd.Sameer...">
+                    <label for="mobile_no">Mobile number:</label>
+                    <input type="number"  id="mobile_no"   name="mobile" value="">
+                    <label for="relation">Relation:</label>
+                    <input type="radio" name="mother" id="relation" value="relation"> Mother<br>
+                    <input type="radio" name="father" id="relation" value="relation"> Father<br>
+                    <input type="radio" name="guardian" id="relation" value="relation"> Guardian
+                    <label for="upload">Please Upload your latest photo</label>
+                    <br><input type="file" name="uploaded_file"  id="upload" accept="image/*">
+                    <br><br>
+                    <a href="index.html">
+                        <input type="button" value="Submit">
+                    </a>
+                </form>
+            </div>
+        
+    
+
+        <!-- Parent Details Form -->
+        </div>
+      
+      <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwFyr2y8rdzUDjH24NtDLgaa0m-ggk89By4lK2veMJWN1yFIpV60s-BOlbo9NUJbnOT9Q/exec'
+        const form = document.forms['submit-to-google-sheet']
+      
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => console.log('Success!', response))
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
+</body>
+</html>

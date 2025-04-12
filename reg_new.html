@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="logo3_hd-modified.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="stylereg.css">
+    <title>Registration Form</title>
+    <style>
+        /* Fullscreen overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it is above everything else */
+        }
+
+        /* Spinner container */
+        /* Spinner container (updated to align properly) */
+.spinner {
+    display: flex;
+    flex-direction: column; /* Stack logo and spinner vertically */
+    align-items: center;    /* Horizontally center */
+    justify-content: center; /* Vertically center */
+    text-align: center;
+}
+
+
+        /* Logo */
+        .spinner img {
+            width: 80px;
+            height: 80px;
+            /* margin-bottom: 20px; */
+        }
+
+        /* CSS Spinner */
+        .spinner .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: tilt 2s infinite ease-in-out; /* Tilt animation */
+}
+
+/* Keyframes for the tilt animation */
+@keyframes tilt {
+    0%, 100% {
+        transform: rotate(0deg); /* Neutral position */
+    }
+    25% {
+        transform: rotate(-10deg); /* Tilt left */
+    }
+    75% {
+        transform: rotate(10deg); /* Tilt right */
+    }
+}
+.container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        /* Tilting image */
+        .tilting-image {
+            width: 300px; /* Adjust as needed */
+            /* height: 500px;*/
+            animation: tilt 2s infinite ease-in-out;
+        }
+
+        /* Tilting animation */
+        @keyframes tilt {
+            0% {
+                transform: rotate(-15deg);
+            }
+            50% {
+                transform: rotate(15deg);
+            }
+            100% {
+                transform: rotate(-15deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="legend-container">
+        <!-- Child Details Form -->
+        <div class="form-container">
+            <legend>Child Details</legend>
+            <form name="submit-to-google-sheet" method="post">
+                <label>Name:</label>
+                <input type="text" name="Child_name" placeholder="Eg: Sd.Sameer...">
+                <label>Age:</label>
+                <input type="number" name="age" placeholder="If less than 1 year, please keep 0">
+                <label>Gender</label>
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="female"> Female
+                <label>Any symptoms of disease:</label>
+                <br><input type="checkbox" name="symptom" value="fever"> Fever
+                <br><input type="checkbox" name="symptom" value="cold"> Cold
+                <br><input type="checkbox" name="symptom" value="motions"> Motions
+                <br><input type="checkbox" name="symptom" value="none"> None
+                <br><label for="sec">Choose your Child Bed:</label>
+                <select name="section" id="sec">
+                    <option value="AC">A/C</option>
+                    <option value="Non AC">Non A/C</option>
+                </select>
+            </div>
+            <div class="form-container">
+                <br><legend>Parent Details</legend>
+                <label for="parent_name">Name of the Parent:</label>
+                <input type="text" id="parent_name" name="parent_name" placeholder="Eg: Sd.Sameer...">
+                <label for="mobile_no">Mobile number:</label>
+                <input type="number" id="mobile_no" name="mobile">
+                <label for="relation">Relation:</label>
+                <input type="radio" name="relation" id="mother" value="mother"> Mother<br>
+                <input type="radio" name="relation" id="father" value="father"> Father<br>
+                <input type="radio" name="relation" id="guardian" value="guardian"> Guardian
+                <label for="upload">Please Upload your latest photo</label>
+                <br><input type="file" name="uploaded_file" id="upload" accept="image/*">
+                
+                <p id="demo"></p>
+
+
+                <br><br>
+                
+                <input type="submit" value="Submit">
+                
+            </div>
+        </form>
+    </div>
+    <div class="loading-overlay" id="loading-overlay">
+        
+        <div class="container">
+            <!-- Tilting Image -->
+            <img src="milk-removebg-preview.png" alt="Tilting Logo" class="tilting-image">
+        </div>
+    </div>
+     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxM9RyFtHJqKDdlNIxt6-ZPBe6Tua_jckPSAOr4AGA3h1jaJ3fQluCEkgjTp2u_QmvXsA/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const loadingOverlay = document.getElementById('loading-overlay');
+        
+          const d = new Date();
+             document.getElementById("demo").innerHTML = d;
+        form.addEventListener('submit', e => {
+            e.preventDefault(); // Prevent default form submission behavior
+            
+            // Show the loading overlay
+            loadingOverlay.style.display = 'flex';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    console.log('Success!', response);
+
+                    // Hide the loading overlay
+                    loadingOverlay.style.display = 'none';
+
+                    // Show confirmation and redirect
+                    if (window.confirm('Form submitted successfully! Click OK to go to the home page.')) {
+                        window.location.href = 'index.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+
+                    // Hide the loading overlay
+                    loadingOverlay.style.display = 'none';
+
+                    // Show error message
+                    alert('Submission failed! Please try again.');
+                });
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sender Page</title>
+    <script>
+        function sendMessage() {
+            const msg = document.getElementById("msg").value;
+            const receiverWindow = window.open("/chat2.html", "_blank");
+            setTimeout(() => receiverWindow.postMessage(msg, "*"), 1000); // Delay to ensure the page loads
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="msg" placeholder="Enter message">
+    <button onclick="sendMessage()">Send Message</button>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="/logo3_hd-modified.png">
+    <title>Feeds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ffdde1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 320px;
+        }
+        h2 {
+            text-align: center;
+            color: #d63384;
+            font-family: 'Georgia', serif;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-family: 'Verdana', sans-serif;
+            color: #333;
+        }
+        .checkbox-label input {
+            margin-right: 10px;
+        }
+        .icon {
+            margin-right: 10px;
+        }
+        .fa-apple-whole {
+            color: red;
+        }
+        .fa-glass-water {
+            color: blue;
+        }
+        .fa-lemon {
+            color: yellow;
+        }
+        .fa-cookie-bite {
+            color: brown;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #d63384;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Choose Food To Feed Your Baby !</h2>
+        <form name="submit-to-google-sheet" method="post">
+            <label class="checkbox-label">
+                <input type="checkbox" name="Food" value="Apple">
+                <i class="fa-solid fa-apple-whole icon"></i>Apple
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" name="Food" value="Milk">
+                <i class="fa-solid fa-glass-water icon"></i>Milk
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" name="Food" value="Banana">
+                <i class="fa-solid fa-lemon icon"></i>Banana
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" name="Food" value="Cerlac">
+                <i class="fa-solid fa-cookie-bite icon"></i>Cerlac
+            </label>
+            <p>If customized, please type here:</p>
+            <input type="text" name="Other" placeholder="Enter other food">
+        </form>
+    </div>
+</body>
+</html>

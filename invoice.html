@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <link rel="shortcut icon" type="x-icon" href="/logo3_hd-modified.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .invoice {
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        h1{
+            align-items: center;
+            background-color: black;
+            color: bisque;
+            text-align: center;
+        }
+        #invoiceImage img {
+            height: 50px;
+            width: 50px;
+        }
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .signature-section {
+            margin-top: 40px;
+            text-align: right;
+        }
+        .signature-section img {
+            height: 30px;
+            width: 50px;
+        }
+
+        @media print {
+            #printButton {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <h1>Tax Invoice</h1>
+        <div id="invoiceImage">
+            <img src="/logo3_hd-modified.png" alt="Logo">
+        </div>
+        <p id="entryTimeDisplay"></p>
+        <p id="currentTimeDisplay"></p>
+        <p id="totalTimeDisplay"></p>
+        <p id="costDisplay"></p>
+
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <img src="sign.png" alt="Signature"><br>
+            <strong>Signature</strong>
+        </div>
+    </div>
+
+    <div id="qrCode" class="qr-code">
+        <h3>UPI Payment QR</h3>
+        <div id="qrcode"></div>
+    </div>
+
+    <button id="printButton" onclick="window.print()">Print Invoice</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        window.onload = function () {
+            const entryTimeInput = localStorage.getItem('entryTime');
+            const costPerMinute = parseFloat(localStorage.getItem('costPerMinute'));
+
+            if (!entryTimeInput || isNaN(costPerMinute)) {
+                alert("Missing invoice data. Please go back and fill the form.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const entryTime = new Date(entryTimeInput);
+            const currentTime = new Date();
+            const timeSpentMinutes = Math.floor((currentTime - entryTime) / (1000 * 60));
+            const totalCost = timeSpentMinutes * costPerMinute;
+
+            document.getElementById('entryTimeDisplay').innerText = `Entry Time: ${entryTime.toLocaleString()}`;
+            document.getElementById('currentTimeDisplay').innerText = `Current Time: ${currentTime.toLocaleString()}`;
+            document.getElementById('totalTimeDisplay').innerText = `Time Spent: ${timeSpentMinutes} minutes`;
+            document.getElementById('costDisplay').innerText = `Total Cost: ₹${totalCost.toFixed(2)}`;
+
+            const upiId = '7386055404@axl';
+            const upiLink = `upi://pay?pa=${upiId}&pn=YourBusiness&am=${totalCost.toFixed(2)}&cu=INR`;
+
+            new QRCode(document.getElementById('qrcode'), upiLink);
+        }
+    </script>
+</body>
+</html>

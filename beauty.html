@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Care Selection</title>
+    <style>
+        body {
+            background-color:  #ffdde1;
+        }
+        
+        .container {
+            width: 60%;
+            margin: auto;
+            text-align: center;
+            background-color:whitesmoke;
+            
+        }
+        .item {
+            display: inline-block;
+            margin: 20px;
+            text-align: center;
+            
+        }
+        img {
+            width: 150px;
+            height: 150px;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select Beauty  Oil to massage your Baby !</h2> 
+        <p>Your baby will get dedicated 900 Sec`s of HandWarmth Massage</p>
+        <form action="submit.php" method="post">
+            <div class="item">
+                <img src="Coconut_and_oil.jpg" alt="Coconut Oil">
+                <h3>99/- Only</h3>
+                <input type="checkbox" name="beautycare[]" value="Coconut Oil"> Coconut Oil
+            </div>
+            <div class="item">
+                <img src="download (7).jpeg" alt="Almond Oil">
+              <h3>126/- Only</h3>
+                <input type="checkbox" name="beautycare[]" value="Almond Oil"> Almond Oil
+            </div>
+            <div class="item">
+                <img src="download (8).jpeg" alt="Olive Oil">
+               <h3>168/- Only</h3>
+                <input type="checkbox" name="beautycare[]" value="Olive Oil"> Olive Oil
+            </div>
+            <div class="item">
+                <img src="download (9).jpeg" alt="Argan Oil">
+               <h3>189/- Only</h3>
+                <input type="checkbox" name="beautycare[]" value="Argan Oil"> Argan Oil
+            </div>
+            <div class="item">
+                <img src="download (10).jpeg" alt="Jojoba Oil">
+               <h3>326/- Only</h3>
+                <input type="checkbox" name="beautycare[]" value="Jojoba Oil"> Jojoba Oil
+            </div>
+            <br>
+          <p>*GST charges may applicable</p>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

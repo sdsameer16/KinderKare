@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="logo3_hd-modified.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="stylereg.css">
+    <title>Registration Form</title>
+    <style>
+        /* Fullscreen overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Tilting image */
+        .tilting-image {
+            width: 300px;
+            animation: tilt 2s infinite ease-in-out;
+        }
+
+        @keyframes tilt {
+            0% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+            100% { transform: rotate(-15deg); }
+        }
+    </style>
+</head>
+<body>
+    
+      
+    <div class="legend-container">
+        <div class="form-container">
+            <legend>Child Details</legend>
+            <form name="submit-to-google-sheet" method="post">
+                <label>Name:</label>
+                <input type="text" name="Child_name" placeholder="Eg: Your lovely Child name..." required>
+
+                <label>Age:</label>
+                <input type="number" name="age" placeholder="If less than 1 year, please keep 0" required>
+
+                <label>Gender:</label>
+                <input type="radio" name="gender" value="male" required> Male
+                <input type="radio" name="gender" value="female" required> Female
+
+                <label>Any symptoms of disease:</label><br>
+                <input type="checkbox" name="symptom" value="fever"> Fever
+                <input type="checkbox" name="symptom" value="cold"> Cold
+                <input type="checkbox" name="symptom" value="motions"> Motions
+                <input type="checkbox" name="symptom" value="none"> None
+
+                <label for="sec">Choose your Child Bed:</label>
+                <select name="section" id="sec">
+                    <option value="AC">A/C</option>
+                    <option value="Non AC">Non A/C</option>
+                </select>
+            </div>
+
+            <div class="form-container">
+                <br><legend>Parent Details</legend>
+                <label for="parent_name">Name of the Parent:</label>
+                <input type="text" id="parent_name" name="parent_name" placeholder="Eg: Your Good name..." required>
+
+                <label for="mobile_no">Mobile number:</label>
+                <input type="text" id="mobile_no" name="mobile" maxlength="10" required oninput="validateMobile()">
+
+                <label for="relation">Relation:</label>
+                <input type="radio" name="relation" value="mother" required> Mother
+                <input type="radio" name="relation" value="father" required> Father
+                <input type="radio" name="relation" value="guardian" required> Guardian
+
+                <label for="upload">Please Upload your latest photo:</label>
+                <input type="file" name="uploaded_file" id="upload" accept="image/*" required>
+
+                <br><br>
+                <input type="hidden" id="uniqueID" name="uniqueID"> <!-- Hidden field for Unique ID -->
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="container">
+            <img src="milk-removebg-preview.png" alt="Tilting Logo" class="tilting-image">
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzUE-_npyEEIwwQBp5VOdDf4Y5ipiiD9Bh8SXW2Cme1qgr4mMH89FlEusaGhVDsMeAleg/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const mobileInput = document.getElementById('mobile_no');
+        const uniqueIDField = document.getElementById('uniqueID');
+        form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    // Validate mobile number before submission
+    if (!/^\d{10}$/.test(mobileInput.value)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    // Generate Unique ID (Last 4 digits of mobile + Random 4 digits)
+    const lastFourDigits = mobileInput.value.slice(-4);
+    const uniqueID = `${lastFourDigits}`;
+    uniqueIDField.value = uniqueID; // Assign to hidden input field
+
+    // Show the loading overlay
+    loadingOverlay.style.display = 'flex';
+
+    // Prepare form data
+    const formData = new FormData(form);
+    formData.append('uniqueID', uniqueID); // Add unique ID
+
+    // Append timestamp
+    const now = new Date();
+    const formattedTimestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+    formData.append('timestamp', formattedTimestamp);
+
+    // Send data to Google Sheets
+    fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+            console.log('Success!', response);
+            loadingOverlay.style.display = 'none';
+
+            // Show message box with unique ID and copy button
+            showUniqueIDPopup(uniqueID);
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            loadingOverlay.style.display = 'none';
+            alert('Submission failed! Please try again.');
+        });
+});
+
+// Function to display Unique ID in a popup with a copy button
+function showUniqueIDPopup(uniqueID) {
+    // Create the popup container
+    const popup = document.createElement("div");
+    popup.style.position = "fixed";
+    popup.style.top = "50%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%)";
+    popup.style.padding = "20px";
+    popup.style.background = "#fff";
+    popup.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.2)";
+    popup.style.borderRadius = "8px";
+    popup.style.textAlign = "center";
+    popup.style.zIndex = "1000";
+
+    // Create the text field
+    const textField = document.createElement("input");
+    textField.type = "text";
+    textField.value = uniqueID;
+    textField.readOnly = true;
+    textField.style.padding = "8px";
+    textField.style.marginRight = "10px";
+    textField.style.border = "1px solid #ccc";
+    textField.style.textAlign = "center";
+
+    // Create the copy button
+    const copyButton = document.createElement("button");
+    copyButton.innerHTML = "📋 Copy";
+    copyButton.style.padding = "8px 12px";
+    copyButton.style.background = "#007BFF";
+    copyButton.style.color = "#fff";
+    copyButton.style.border = "none";
+    copyButton.style.cursor = "pointer";
+    copyButton.style.borderRadius = "4px";
+    copyButton.onclick = function () {
+        textField.select();
+        document.execCommand("copy");
+        alert("Unique ID copied: " + uniqueID);
+    };
+
+    // Create the close button
+    const closeButton = document.createElement("button");
+    closeButton.innerHTML = "Close";
+    closeButton.style.marginTop = "10px";
+    closeButton.style.display = "block";
+    closeButton.style.padding = "8px 12px";
+    closeButton.style.background = "#dc3545";
+    closeButton.style.color = "#fff";
+    closeButton.style.border = "none";
+    closeButton.style.cursor = "pointer";
+    closeButton.style.borderRadius = "4px";
+    closeButton.onclick = function () {
+        document.body.removeChild(popup);
+        window.location.href = 'index.html'; // Redirect after closing
+    };
+
+    // Append elements to the popup
+    popup.appendChild(textField);
+    popup.appendChild(copyButton);
+    popup.appendChild(document.createElement("br"));
+    popup.appendChild(closeButton);
+
+    // Append popup to the body
+    document.body.appendChild(popup);
+}
+
+    </script>
+</body>
+</html>

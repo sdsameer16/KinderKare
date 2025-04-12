@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thief's Gold Heist</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .game-container {
+            margin: 50px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 0 auto;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .village {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, #ff9a9e, #fad0c4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .village:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .edge {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            transform-origin: 0 0;
+            transition: background-color 0.3s;
+        }
+
+        .thief {
+            width: 30px;
+            height: 30px;
+            background-color: #333; /* Placeholder for thief icon */
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: absolute;
+        }
+
+        button {
+            margin: 10px;
+            padding: 12px 24px;
+            font-size: 16px;
+            background: linear-gradient(145deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #current-gold {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #ffd700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        #game-result {
+            margin-top: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .result-success {
+            color: #4CAF50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-failure {
+            color: #ff4444;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Thief's Gold Heist</h1>
+        <button id="start-btn">Start Game</button>
+        <button id="restart-btn">Reset Game</button>
+        <div class="graph-container" id="graph-container"></div>
+        <div id="current-gold">Gold: 0</div>
+        <div id="game-result"></div>
+    </div>
+
+    <script>
+        const villages = [
+            { id: 0, gold: 10, x: 100, y: 100, connections: [1, 2, 3] },
+            { id: 1, gold: 20, x: 300, y: 100, connections: [0, 3, 4] },
+            { id: 2, gold: 15, x: 100, y: 300, connections: [0, 3, 4] },
+            { id: 3, gold: 25, x: 300, y: 300, connections: [0, 1, 2, 4] },
+            { id: 4, gold: 30, x: 500, y: 300, connections: [1, 2, 3] }
+        ];
+
+        let collectedGold = 0;
+        let currentVillage = null;
+        let visitedVillages = [];
+        const graphContainer = document.getElementById('graph-container');
+        const edges = [];
+
+        const thief = document.createElement('div');
+        thief.classList.add('thief');
+
+        function drawGraph() {
+            graphContainer.innerHTML = '';
+            edges.length = 0;
+
+            villages.forEach(village => {
+                const villageDiv = document.createElement('div');
+                villageDiv.classList.add('village');
+                villageDiv.textContent = `V${village.id} (${village.gold})`;
+                villageDiv.style.left = `${village.x}px`;
+                villageDiv.style.top = `${village.y}px`;
+                villageDiv.dataset.villageId = village.id;
+                graphContainer.appendChild(villageDiv);
+
+                village.connections.forEach(connId => {
+                    const targetVillage = villages.find(v => v.id === connId);
+                    if (edges.some(edge => edge.from === connId && edge.to === village.id)) return;
+
+                    const edge = document.createElement('div');
+                    edge.classList.add('edge');
+                    const dx = targetVillage.x - village.x;
+                    const dy = targetVillage.y - village.y;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                    edge.style.width = `${length}px`;
+                    edge.style.height = '2px';
+                    edge.style.transform = `rotate(${angle}deg)`;
+                    edge.style.left = `${village.x + 30}px`;
+                    edge.style.top = `${village.y + 30}px`;
+                    graphContainer.appendChild(edge);
+
+                    edges.push({ from: village.id, to: connId, element: edge });
+                });
+            });
+        }
+
+        function highlightEdge(from, to, color) {
+            const edge = edges.find(e => (e.from === from && e.to === to) || (e.from === to && e.to === from));
+            if (edge) {
+                edge.element.style.backgroundColor = color;
+            }
+        }
+
+        function moveThief(selectedVillage) {
+            if (currentVillage !== null && villages[currentVillage].connections.includes(selectedVillage)) {
+                highlightEdge(currentVillage, selectedVillage, "yellow");
+                currentVillage = selectedVillage;
+                collectedGold += villages.find(v => v.id === selectedVillage).gold;
+                visitedVillages.push(selectedVillage);
+                document.getElementById('current-gold').textContent = `Gold: ${collectedGold}`;
+                document.querySelector(`[data-village-id="${selectedVillage}"]`).appendChild(thief);
+
+                if (selectedVillage === 2) {
+                    checkFinalResult();
+                }
+            } else {
+                highlightEdge(currentVillage, selectedVillage, "blue");
+            }
+        }
+
+        function checkFinalResult() {
+            let resultText = "";
+            let resultClass = "";
+
+            if (collectedGold === 100) {
+                resultText = "Congratulations! You collected the maximum gold.";
+                resultClass = "result-success";
+            } else {
+                resultText = "You did not collect the maximum gold.";
+                resultClass = "result-failure";
+            }
+
+            visitedVillages.forEach((village, index) => {
+                if (index > 0) {
+                    highlightEdge(visitedVillages[index - 1], village, resultClass === "result-success" ? "green" : "red");
+                }
+                document.querySelector(`[data-village-id="${village}"]`).style.backgroundColor = resultClass === "result-success" ? "green" : "red";
+            });
+
+            const resultDiv = document.getElementById('game-result');
+            resultDiv.textContent = resultText;
+            resultDiv.className = resultClass;
+            resultDiv.style.display = "block";
+        }
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            currentVillage = 0;
+            collectedGold = 10;
+            visitedVillages = [0];
+            document.getElementById('current-gold').textContent = `Gold: ${collectedGold}`;
+            document.getElementById('game-result').style.display = "none";
+            drawGraph();
+            document.querySelector(`[data-village-id="0"]`).appendChild(thief);
+
+            document.querySelectorAll('.village').forEach(village => {
+                village.addEventListener('click', (e) => {
+                    let selectedVillage = parseInt(e.target.dataset.villageId);
+                    moveThief(selectedVillage);
+                });
+            });
+        });
+
+        document.getElementById('restart-btn').addEventListener('click', () => {
+            document.getElementById('game-result').style.display = "none";
+            currentVillage = null;
+            collectedGold = 0;
+            visitedVillages = [];
+            document.getElementById('current-gold').textContent = "Gold: 0";
+            drawGraph();
+        });
+
+        drawGraph();
+    </script>
+</body>
+</html>

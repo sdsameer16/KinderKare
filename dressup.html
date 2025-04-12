@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="/logo3_hd-modified.png">
+    <title>Clothing Selection</title>
+    <style>
+       body {
+background-color:  #ffdde1;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+        }
+        .item {
+            display: inline-block;
+            margin: 20px;
+            text-align: center;
+        }
+        img {
+            width: 250px;
+            height: 250px;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select Clothing Type</h2>
+        <form action="submit.php" method="post">
+            <div class="item">
+                <img src="nd.webp" alt="Night Wear">
+                <h3> 1200/- </h3>
+                <input type="checkbox" name="clothing[]" value="Night Wear"> Night Wear
+            </div>
+            <div class="item">
+                <img src="pd.webp" alt="Party Wear">
+                <h3> 1700/- </h3>
+                <input type="checkbox" name="clothing[]" value="Party Wear"> Party Wear
+            </div>
+            <div class="item">
+                <img src="sd.webp" alt="Summer Wear">
+                <h3> 100/- </h3>
+                <input type="checkbox" name="clothing[]" value="Summer Wear"> Summer Wear
+            </div>
+            <div class="item">
+                <img src="wd.webp" alt="Winter Wear">
+                <h3> 2000/- </h3>
+                <input type="checkbox" name="clothing[]" value="Winter Wear"> Winter Wear
+            </div>
+            <div class="item">
+                <img src="cd.webp" alt="Celebrity Wear">
+                <h3> 2500/- </h3>
+                <input type="checkbox" name="clothing[]" value="Celebrity Wear"> Celebrity Wear
+            </div>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

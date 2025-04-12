@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receiver Page</title>
+    <script>
+        window.addEventListener("message", function(event) {
+            document.getElementById("output").innerText = event.data;
+        });
+    </script>
+</head>
+<body>
+    <h2>Received Message:</h2>
+    <p id="output">Waiting for message...</p>
+</body>
+</html>
