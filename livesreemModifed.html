@@ -1,127 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="x-icon" href="/logo3_hd-modified.png">
-    <title>Live Stream & Navigation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="x-icon" href="/logo3_hd-modified.png" />
+  <title>Live Stream & Navigation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        .navbar {
-            width: 100%;
-            background: #94084a;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
+    .navbar {
+      width: 100%;
+      background: #94084a;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
 
-        .navbar button {
-            background:skyblue;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 16px;
-            
-            font-weight: bold;
-        }
+    .navbar button {
+      background: skyblue;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
 
-        .navbar button:hover {
-            background: #ff99cc;
-        }
+    .navbar button:hover {
+      background: #ff99cc;
+    }
 
-        .container {
-            display: flex;
-            width: 90%;
-            margin-top: 10px;
-        }
+    .container {
+      display: flex;
+      width: 90%;
+      margin-top: 10px;
+    }
 
-        .video-container {
-            flex: 2;
-        
-            display: flex;
-            justify-content: center;
-            align-items: left;
-            padding: 10px;
-        }
+    .video-container {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+    }
 
-        video {
-            width: 1200;
-            max-height: 650;
-        }
+    .mainright {
+      flex: 1;
+      background: white;
+      border: none;
+    }
 
-        .mainright {
-            flex: 1;
-            background: white;
-            /* border-left:solid #d63384; */
-            border: none;
-            
-        }
+    iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+    }
 
-        iframe {
-            width: 100%;
-            height: 700px;
-            border: none;
-        }
-        .pickup-btn-fixed {
-  position: fixed;  
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000; /* stay above other content */
-}
-
-    </style>
-    <script>
-        function loadPage(page) {
-            document.getElementById('mainright').src = page;
-        }
-    </script>
+    .pickup-btn-fixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navigation Buttons -->
-    <div class="navbar">
-        <button onclick="loadPage('feeding.html')">Feed</button>
-        <button onclick="loadPage('dressup.html')">DressUp</button>
-        <button onclick="loadPage('beauty.html')">Beauty</button>
+  <!-- Navigation Buttons -->
+  <div class="navbar">
+    <button onclick="loadPage('feeding.html')">Feed</button>
+    <button onclick="loadPage('dressup.html')">DressUp</button>
+    <button onclick="loadPage('beauty.html')">Beauty</button>
+  </div>
 
-</div>
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Left side: YouTube live -->
+    <div class="video-container">
+      <div id="youtubeInputBox" style="margin-bottom: 10px;">
+        <input
+          type="text"
+          id="youtubeInput"
+          placeholder="Paste YouTube live URL here"
+          style="width: 320px; padding: 5px;"
+        />
+        <button onclick="setYouTubeLive()" style="padding: 6px 12px;">
+          Play Live Stream
+        </button>
+      </div>
 
-        
-    
-
-    <!-- Content Area -->
-    <div class="container">
-        <!-- Live Stream Section -->
-        <div class="video-container">
-            <!-- <iframe name="mainleft" src="livestreem.html"></iframe> -->
-            <iframe 
-            width="560" 
-            height="315" 
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1&controls=0&autoplay=1&mute=1" 
-            frameborder="0" 
-            allowfullscreen>
-          </iframe>
-          
-        </div>
-
-        <!-- Right Section where pages load -->
-        <div class="mainright">
-            <iframe id="mainright" name="mainright" src="feeding.html"></iframe>
-        </div>
+      <iframe
+        id="youtubeFrame"
+        width="560"
+        height="315"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
     </div>
-    <a href="payment.html" target="_blank" class="pickup-btn-fixed">
-        <button style="color: rgb(31, 29, 162); background-color: pink;border-radius: 10px;height: 70px;font-family: 'Times New Roman', Times, serif;font-size: 18px;">PickUp My Child</button>
-      </a>
-      
+
+    <!-- Right side: Page iframe -->
+    <div class="mainright">
+      <iframe id="mainright" name="mainright" src="feeding.html"></iframe>
+    </div>
+  </div>
+
+  <!-- Floating pickup button -->
+  <a href="payment.html" target="_blank" class="pickup-btn-fixed">
+    <button
+      style="color: rgb(31, 29, 162); background-color: pink; border-radius: 10px; height: 70px; font-family: 'Times New Roman', Times, serif; font-size: 18px;">
+      PickUp My Child
+    </button>
+  </a>
+
+  <!-- Scripts -->
+  <script>
+    function loadPage(page) {
+      document.getElementById('mainright').src = page;
+    }
+
+    function extractVideoId(url) {
+      const regex = /(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    function setYouTubeLive() {
+      const inputUrl = document.getElementById("youtubeInput").value.trim();
+      const videoId = extractVideoId(inputUrl);
+
+      if (videoId) {
+        document.getElementById("youtubeFrame").src =
+          `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
+        document.getElementById("youtubeInputBox").style.display = "none";
+      } else {
+        alert("Please enter a valid YouTube live stream link.");
+      }
+    }
+  </script>
+
 </body>
 </html>
