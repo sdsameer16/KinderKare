@@ -1,57 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-     <link rel="shortcut icon" type="x-icon" href="logo3_hd-modified.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kinder Kares</title>
+  <meta charset="UTF-8">
+   
+  <link rel="shortcut icon" type="x-icon" href="/logo3_hd-modified.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kinder Kares</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  
+  
+  <div class="header">
+    <div class="logo">
+      <marquee style="color: brown;width: 50;">Welcome to Our New Baby Care Center - Kinder Kare
+      <img src="logo3_hd-modified.png" width="30px"></marquee>
+    </div>
+    <div class="buttons">
+      <a href="reg_updated.html" target="_blank">
+      <button onclick="register()">Register</button>
+    </a> 
+      <a href="login.html" target="_blank" >
+      <button onclick="login()">Login</button>
+    </a>
     
-    <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
-        <!-- Image Section -->
-        <div>
-          <img src="/logo3_hd.jpeg " alt="Our logo" style="vertical-align: middle; width: 700px; height: auto;">
-        </div>
-      
-        <!-- Form Section -->
-        <div>
-          <form style="
-            width: 300px; /* Fixed width based on your preference */
-            height: 300px; /* Adjust height as needed */
-            padding: 50px; /* Increase padding for better spacing */
-            background-color: #f1cfed;
-            border: 2px solid #070707;
-            border-radius: 15px;
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          ">
-            <label for="uid" style="color: #333; width: 100%; text-align: left;">User Id:</label>
-            <input type="text" id="uid" name="fname" placeholder="Enter id" style="width: 90%; padding: 15px; margin: 15px 0; border: 1px solid #ccc; border-radius: 5px; background-color: #fefefe; color: #555;">
-            
-            <label for="passw" style="color: #333; width: 100%; text-align: left;">Password:</label>
-            <input type="password" id="passw" name="passwo" placeholder="Enter password" style="width: 90%; padding: 15px; margin: 15px 0; border: 1px solid #ccc; border-radius: 5px; background-color: #fefefe; color: #555;">
-            <tr>
-                <td>
-                    <a href="livesreemModifed.html" style="display: block; width: 90%; padding: 15px; margin: 20px 0; background-color: #d32f2f; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-size: 18px; cursor: pointer;">
-                        Login
-                    </a>
-                </td>
-            </tr>
-            
-        </form>
-        </div>
-      </div>
-      <address>Address: #5-653,
-        Brodipet,
-        Opposite RailWay Station,
-        Green Houses Gardens,
-        Guntur.</address>
-<footer>
-    <h4 style="text-align: center ; background-color: gold;">   Your Child`s  Home  away  from  Home     </h4>
-</footer>
+    <a href="aboutus.html" target="_blank">
+      <button onclick="joinus()">Join Us!</button>
+    </a>
+    <a href="caretaker.html" target="_blank">
+      <button onclick="login()">Care Taker</button>
+    </a>
+  </div>
+  </div>
 
+  <div class="main-container">
+    <!-- Background Video -->
+    <video autoplay loop id="myVideo">
+      <source src="bkgroung vire.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Chatbox Section -->
+    <div class="chatbox">
+      <div class="chat-header">know More About Us...</div>
+      <div class="chat-content" id="chatContent">
+        <!-- Messages will be dynamically added here -->
+      </div>
+      
+      
+      <div class="whatsapp-chat">
+        <p>Having Any Queries? Please feel<br>free to reach out:</p>
+          <a href="https://wa.me/919905487157?text=Hello,I%20am%20having%20some%20Queries%20about%20your%20baby%20care%20Centre%20" target="_blank" class="whatsapp-chat">
+          <img src="download (5).png" alt="WhatsApp Icon">
+       <span>  Chat With Us</span>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+  
+   
+  <script> window.chtlConfig = { chatbotId: "4837319428" } </script>
+<script async data-id="4837319428" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+
+  <script src="script.js"></script>
 </body>
 </html>
