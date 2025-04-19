@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Care Center</title>
+    <link rel="stylesheet" href="styles.css">
+   
+    <link rel="shortcut icon" type="x-icon" href="logo3_hd-modified.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <img src="enhanced_background.jpeg" alt="BabyCare" class="logo">
+        <p style="font-family:Georgia, 'Times New Roman', Times, serif;font-size: 50px;"> Kinder Kares</p>
+        <div class="logo"></div>
+        <a href="../index.html">
+            <button style="color:white;background-color: rgb(138, 8, 51);font-size: medium;">HOME</button>
+        </a>
+        
+    </header>
+
+    
+
+    <!-- Hero Banner with Animated Slider -->
+    <section id="home" class="banner">
+        <div class="slides">
+            <img src="Happy Images.jpg" class="active" alt="Happy Baby">
+            <img src="Baby and Caretaker.jpg" alt="Caretaker & Baby">
+            <img src="baby.jpg" alt="Baby Care">
+            <img src="mom and baby.jpg" alt="Playing Baby">
+            <img src="smilebaby.jpg" alt="Smile Baby">
+        </div>
+        <button class="slide-btn prev">&#10094;</button>
+        <button class="slide-btn next">&#10095;</button>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="overlay">
+        <marquee behavior="alternate"  style="color:rgb(167, 7, 60); font-size: 18px; padding: 10px; font-weight: bold;">
+            For Our Website Franchise, Fill the Form Given Below <i class="fa-solid fa-down-long fa-bounce"></i>
+          </marquee>
+          
+        <h1>Welcome to BabyCare 💕</h1>
+        <p>Caring for your little ones with love and expertise</p>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <h2><b>Our Services</b></h2>
+        <div class="service-container">
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1563263427-708318a97183?q=80&w=2944&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Baby Food">
+                <div class="service-text">Healthy Nutrition 🍎</div>
+            </div>
+            <div class="service-box">
+                <img src="https://media.istockphoto.com/id/1367706464/photo/cute-baby-girl-in-her-crib.jpg?s=612x612&w=0&k=20&c=JWbH4XIl20rc0VazHvRZc19k1jeVZbpzmpy-FOP1bWM=" alt="Baby Sleep">
+                <div class="service-text">Baby Sleep Care 😴</div>
+            </div>
+            <div class="service-box">
+                <img src="https://plus.unsplash.com/premium_photo-1676927897948-7e563c6ec332?q=80&w=3086&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Baby Play">
+                <div class="service-text">Play & Growth 🧸</div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+
+
+    <!-- Caretaker Section -->
+    <section id="about-caretaker" class="caretaker-section">
+        <h2>About Caretaker</h2>
+        <p>Meet our professional caretakers who ensure your baby receives the best care possible.</p>
+        <div class="caretaker-slider">
+            <div class="caretaker-card">
+                <img src="caretaker1.jpg" alt="Caretaker 1">
+                <h3>Emily Johnson</h3>
+                <p>Certified Childcare Expert, 7+ Years of Experience.</p>
+                <button class="details-btn" onclick="toggleDetails()">More Details →</button>
+                <p class="caretaker-details">CPR & First Aid Certified, Specializes in infant cognitive growth.</p>
+            </div>
+        </div>
+        <button class="next-btn" onclick="nextCaretaker()">&#10095;</button>
+    </section>
+    <br>
+    <br>
+    <br>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <h2>What Parents Say 💬</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial-box">
+                <p>"BabyCare has been a lifesaver! My baby's sleep has improved so much!"</p>
+                <h4>- Sarah Johnson</h4>
+            </div>
+            <div class="testimonial-box">
+                <p>"The nutrition plan is amazing! My baby loves the food!"</p>
+                <h4>- Michael Brown</h4>
+            </div>
+            <div class="testimonial-box">
+                <p>"Their play sessions helped my baby learn and grow faster."</p>
+                <h4>- Emily Davis</h4>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+
+    <!-- Review Section -->
+    <section class="reviews-section">
+        <h2>Our Reviews <br> on Google Maps</h2>
+        <div class="reviews-container">
+            <button id="prevBtn">❮</button>
+            <div class="review-card active">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Parent Avatar">
+                <div class="review-content">
+                    <h3>Emma Johnson <span class="stars">★★★★★</span></h3>
+                    <p>The baby care center has been a wonderful experience for my child. The caretakers are so loving and attentive!</p>
+                </div>
+            </div>
+            <div class="review-card">
+                <img src="https://vollwebstudio.co.uk/wp-content/uploads/2023/08/gmaps-logo.svg" alt="Parent Avatar">
+                <div class="review-content">
+                    <h3>Michael Smith <span class="stars">★★★★★</span></h3>
+                    <p>I was worried at first, but this place is incredible! My child enjoys every day here.</p>
+                </div>
+            </div>
+            <div class="review-card">
+                <img src="https://vollwebstudio.co.uk/wp-content/uploads/2023/08/facebook-logo.svg" alt="Parent Avatar">
+                <div class="review-content">
+                    <h3>Sarah Williams <span class="stars">★★★★★</span></h3>
+                    <p>The caretakers are highly trained, and my child is always happy. Highly recommend this place!</p>
+                </div>
+            </div>
+            <button id="nextBtn">❯</button>
+        </div>
+        <div class="google-reviews">
+            <a href="https://www.google.com/maps" target="_blank">
+                <img src="https://spiztley.com/assets/images/google_my_business-red.png" alt="Google Maps">
+                Read all reviews on Google Maps
+            </a>
+        </div>
+    </section>
+    <br>
+    <br>
+
+    <!-- Contact Form -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="text" name="name" required placeholder="Name of your day Care center">
+                    <input type="number" name="year" required placeholder="Experience in this indutry">
+                    <input type="tel" name="phone" required placeholder="Phone number">
+                </div>
+                <div class="col-sm-6">
+                    <input type="email" name="email" required placeholder="E-mail">
+                    <textarea name="address" required placeholder="Address"></textarea>
+                </div>
+                <div class="col-sm-12">
+                    
+                    <button type="submit" class="submit-btn">Request a Franchise </button>
+                </div>
+            </div>
+            See the eligiblity here<a href="../fp.html">Click</a>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>For better experience, download the Childcare app now</h3>
+            <p><a href="#">Download Android App</a> | <a href="#">Download iOS App</a></p>
+            <p>© 2025 Childcare Management Limited</p>
+            
+            <div class="footer-sections">
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li>About Us</li>
+                        <li>Childcare Corporate</li>
+                        <li>Careers</li>
+                        <li>Team</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact us</h4>
+                    <ul>
+                        <li>Help & Support</li>
+                        <li>Partner with us</li>
+                        <li>Ride with us</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li>Terms & Conditions</li>
+                        <li>Privacy Policy</li>
+                        <li>Investor Relations</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Explore with Child Care</h4>
+                    <ul>
+                        <li>Childcare News</li>
+                        <li>Available in: Bangalore, Gurgaon, Hyderabad, Delhi, Mumbai, Pune</li>
+                        <li>679 cities</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Social Links</h4>
+                    <ul>
+                        <li>LinkedIn</li>
+                        <li>Instagram</li>
+                        <li>Facebook</li>
+                        <li>Pinterest</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

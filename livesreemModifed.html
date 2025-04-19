@@ -85,18 +85,6 @@
   <div class="container">
     <!-- Left side: YouTube live -->
     <div class="video-container">
-      <div id="youtubeInputBox" style="margin-bottom: 10px;">
-        <input
-          type="text"
-          id="youtubeInput"
-          placeholder="Paste YouTube live URL here"
-          style="width: 320px; padding: 5px;"
-        />
-        <button onclick="setYouTubeLive()" style="padding: 6px 12px;">
-          Play Live Stream
-        </button>
-      </div>
-
       <iframe
         id="youtubeFrame"
         width="560"
@@ -134,18 +122,18 @@
     }
 
     function setYouTubeLive() {
-      const inputUrl = document.getElementById("youtubeInput").value.trim();
-      const videoId = extractVideoId(inputUrl);
+      const savedUrl = localStorage.getItem("youtubeURL") || "";
+      const videoId = extractVideoId(savedUrl);
 
       if (videoId) {
         document.getElementById("youtubeFrame").src =
           `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
-        document.getElementById("youtubeInputBox").style.display = "none";
       } else {
-        alert("Please enter a valid YouTube live stream link.");
+        document.getElementById("youtubeFrame").replaceWith("No Live Stream Available");
       }
     }
+
+    window.addEventListener("DOMContentLoaded", setYouTubeLive);
   </script>
 
 </body>
-</html>

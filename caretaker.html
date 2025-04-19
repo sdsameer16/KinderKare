@@ -7,11 +7,34 @@
     <title>Embedded Google Sheet</title>
 </head>
 <body style="background-color:  #ffdde1;">
+  <a href="../index.html">
+    <button style="color:white;background-color: rgb(138, 8, 51);font-size: medium;">HOME</button>
+</a>
     <h1>Details of Children</h1>
+    <h2>Paste link:</h2>
+    <input
+    type="text"
+    id="youtubeInput"
+    placeholder="Paste YouTube live URL here"
+    style="width: 320px; padding: 5px;"
+  />
+  <br><br>
     <iframe 
         src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSSnHHLmabh4IM0vkORtj-GL0woAzT6RcA08UHb-lCeWGjyX3XCZ4JS_YAwGFiEtmc-dvMP7jByOJoG/pubhtml?widget=true&amp;headers=false" 
         width="100%" 
         height="600">
     </iframe>
+    <script>
+        const input = document.getElementById("youtubeInput");
+    
+        // Save to localStorage when the caretaker types
+        input.addEventListener("input", () => {
+          localStorage.setItem("youtubeURL", input.value.trim());
+        });
+    
+        // Optional: Restore the previously saved link
+        const saved = localStorage.getItem("youtubeURL");
+        if (saved) input.value = saved;
+      </script>
 </body>
 </html>
